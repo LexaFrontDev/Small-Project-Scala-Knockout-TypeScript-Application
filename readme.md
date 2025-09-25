@@ -22,8 +22,8 @@ You need **Docker** and **Docker Engine** installed on your machine.
 ### 1. Clone the repository
 
 ```bash
-git clone 
-cd Auth
+git clone https://github.com/LexaFrontDev/Small-Project-Scala-Knockout-TypeScript-Application.git
+cd Small-Project-Scala-Knockout-TypeScript-Application
 ```
 
 ### 2. Build the project
