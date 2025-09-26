@@ -3,7 +3,7 @@ import {RegisterFetchProps} from "../../../props/auth/register/RegisterFetchProp
 export class SaveFetch {
 
     async save(data: RegisterFetchProps): Promise<boolean> {
-        const response = await fetch('http://localhost:9000/users/save', {
+        const response = await fetch('https://small-project-scala-knockout-typescript-62bw.onrender.com/users/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
