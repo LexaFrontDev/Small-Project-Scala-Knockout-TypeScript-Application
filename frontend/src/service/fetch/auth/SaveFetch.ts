@@ -1,9 +1,9 @@
 import {RegisterFetchProps} from "../../../props/auth/register/RegisterFetchProps";
 
-export class RegisterFetch{
+export class SaveFetch {
 
-    async register(data: RegisterFetchProps): Promise<boolean> {
-        const response = await fetch('http://localhost:9000/api/save', {
+    async save(data: RegisterFetchProps): Promise<boolean> {
+        const response = await fetch('http://localhost:9000/users/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

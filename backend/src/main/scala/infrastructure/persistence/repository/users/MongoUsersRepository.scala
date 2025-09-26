@@ -3,7 +3,6 @@ package infrastructure.persistence.repository.users
 import domain.entity.Users
 import infrastructure.EntityMapper.users.UserMapper
 import org.mongodb.scala._
-import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Indexes
 import domain.persistence.repository.users.UsersRepository
 import scala.concurrent.ExecutionContext

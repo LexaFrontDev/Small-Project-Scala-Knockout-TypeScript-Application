@@ -1,16 +1,13 @@
 import { Router } from "./service/router/Router";
-import { RegisterPage } from "./pages/register/RegisterPage";
-import { AuthCheckFetch } from "./service/fetch/check/CheckAuthFetch"
+import { SavePage } from "./pages/register/SavePage";
 import {DashboardPage} from "./pages/dashboard/DashboardPage";
 
-const auth = new AuthCheckFetch();
-const router = new Router();
-let isAuth = auth.checkAuth();
 
-if(!isAuth){
-    router.register("register", RegisterPage);
-}else{
-    router.register("dashboard", DashboardPage);
-}
+const router = new Router();
+
+
+router.register("/", SavePage);
+router.register("dashboard", DashboardPage);
+
 
 

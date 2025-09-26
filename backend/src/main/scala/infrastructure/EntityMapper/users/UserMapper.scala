@@ -20,11 +20,12 @@ object UserMapper {
 
   def fromDocument(doc: Document): Users = {
     Users(
-      id        = doc.get("_id").collect { case oid: BsonObjectId => oid.getValue.toHexString },
-      name      = doc.get("name").collect { case s: String => s }.getOrElse(""),
-      email     = doc.get("email").collect { case s: String => s }.getOrElse(""),
-      subscribe = doc.get("subscribe").collect { case b: Boolean => b }.getOrElse(false),
-      role      = doc.get("role").collect { case s: String => s }.getOrElse("")
+      id = doc.get("_id").collect { case oid: BsonObjectId => oid.getValue.toHexString },
+      name = doc.get("name").map(_.asString().getValue).getOrElse(""),
+      email = doc.get("email").map(_.asString().getValue).getOrElse(""),
+      subscribe = doc.get("subscribe").exists(_.asBoolean().getValue),
+      role = doc.get("role").map(_.asString().getValue).getOrElse("")
     )
   }
+
 }

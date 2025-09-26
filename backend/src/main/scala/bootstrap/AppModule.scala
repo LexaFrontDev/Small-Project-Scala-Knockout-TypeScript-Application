@@ -13,6 +13,7 @@ import infrastructure.http.json.JsonFormats
 trait AppModule extends JsonFormats {
   implicit lazy val ec: ExecutionContext = scala.concurrent.ExecutionContext.global
   lazy val usersRepository: UsersRepository = wire[MongoUsersRepository]
-  lazy val usersController: UsersController   = wire[UsersController]
+  lazy val usersController: UsersController = wire[UsersController]
 }
+
 

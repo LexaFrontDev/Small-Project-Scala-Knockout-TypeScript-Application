@@ -6,7 +6,7 @@ export class DataFetch {
 
 
     async  fetchData(): Promise<UsersList | boolean>{
-       const response = await fetch('http://localhost:9000/api/users/list', {
+       const response = await fetch('http://localhost:9000/users', {
            method: 'GET',
            headers: {
                'Content-Type': 'application/json',

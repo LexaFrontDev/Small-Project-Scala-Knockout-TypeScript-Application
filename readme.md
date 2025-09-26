@@ -113,7 +113,7 @@ http://localhost:8080
         │   │       DashboardPage.ts
         │   │
         │   └───register
-        │           RegisterPage.ts
+        │           SavePage.ts
         │
         ├───props
         │   ├───auth
@@ -126,7 +126,7 @@ http://localhost:8080
         ├───service
         │   ├───fetch
         │   │   ├───auth
-        │   │   │       RegisterFetch.ts
+        │   │   │       SaveFetch.ts
         │   │   │
         │   │   └───dashboard
         │   │           DataFetch.ts

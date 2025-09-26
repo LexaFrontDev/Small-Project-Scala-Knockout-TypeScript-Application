@@ -1,5 +1,3 @@
-import * as ko from "knockout";
-
 export class Router {
     private routes: Record<string, any> = {};
     private currentInstance: any = null;
@@ -13,23 +11,18 @@ export class Router {
         this.routes[path] = componentClass;
     }
 
+    navigate(path: string) {
+        window.location.hash = path;
+    }
+
     private handleRouteChange = () => {
-        const path = window.location.hash.replace("#", "") || "home";
+        const path = window.location.hash.replace("#", "") || "/";
+        const ComponentClass = this.routes[path] || this.routes["/"];
+        if (!ComponentClass) return;
 
-        const ComponentClass = this.routes[path];
-
-        if (!ComponentClass) {
-            console.warn(`Route "${path}" not found`);
-            return;
-        }
-
-
-        if (this.currentInstance) {
-            const oldDiv = document.getElementById("src");
-            if (oldDiv) document.body.removeChild(oldDiv);
-        }
-
-
+        const root = document.getElementById("root");
+        if (!root) return;
+        root.innerHTML = "";
         this.currentInstance = new ComponentClass();
     };
 }

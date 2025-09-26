@@ -2,7 +2,6 @@ import * as ko from "knockout";
 import { DataFetch } from "../../service/fetch/dashboard/DataFetch";
 import { UsersList } from "../../props/dashboard/UsersList";
 
-
 const dataFetch = new DataFetch();
 
 export class DashboardPage {
@@ -19,36 +18,66 @@ export class DashboardPage {
             this.usersList([]);
             return false;
         }
+        // @ts-ignore
         this.usersList(result);
     }
 
     render() {
-        const appDiv = document.createElement("div");
-        appDiv.id = "src";
-        document.body.appendChild(appDiv);
+        const root = document.getElementById("root");
+        if (!root) return;
 
-        appDiv.innerHTML = `
-            <h1 class="text-2xl font-bold mb-4">Dashboard - Users</h1>
-            <table class="min-w-full border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="px-4 py-2 border">Name</th>
-                        <th class="px-4 py-2 border">Email</th>
-                        <th class="px-4 py-2 border">Subscribed</th>
-                        <th class="px-4 py-2 border">Role</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: usersList">
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-2 border" data-bind="text: name"></td>
-                        <td class="px-4 py-2 border" data-bind="text: email"></td>
-                        <td class="px-4 py-2 border" data-bind="text: subscribe"></td>
-                        <td class="px-4 py-2 border" data-bind="text: role"></td>
-                    </tr>
-                </tbody>
-            </table>
+        root.innerHTML = `
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <div class="d-flex gap-2">
+                        <button id="refresh-data" class="btn btn-success">Обновить данные</button>
+                        <button id="go-home" class="btn btn-primary">Home</button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <h1 class="mb-4">Users List</h1>
+                <div class="table-responsive shadow-sm">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subscribed</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: usersList">
+                            <tr>
+                                <td data-bind="text: name"></td>
+                                <td data-bind="text: email"></td>
+                                <td data-bind="text: subscribe"></td>
+                                <td data-bind="text: role"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         `;
 
-        ko.applyBindings(this, appDiv);
+
+        const homeBtn = document.getElementById("go-home");
+        if (homeBtn) {
+            homeBtn.addEventListener("click", () => {
+                window.location.hash = "/";
+            });
+        }
+
+
+        const refreshBtn = document.getElementById("refresh-data");
+        if (refreshBtn) {
+            refreshBtn.addEventListener("click", () => {
+                this.getData();
+            });
+        }
+        ko.cleanNode(root);
+        ko.applyBindings(this, root);
     }
 }
