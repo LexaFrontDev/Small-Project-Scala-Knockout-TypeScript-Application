@@ -9,7 +9,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class MongoUsersRepository(implicit ec: ExecutionContext) extends UsersRepository {
 
-  private val mongoUri: String = sys.env.getOrElse("MONGO_URI", "mongodb://localhost:27017/mydb")
+  private val mongoUri: String = sys.env.getOrElse("MONGO_URI", "mongodb+srv://muxametali445_db_user:Q25sOrcEPVPZC5lH@cluster0.x5lfx63.mongodb.net/mydb?retryWrites=true&w=majority&appName=Cluster0")
 
   private val databaseName: String = {
     val fromEnv = sys.env.get("MONGO_DB_NAME")
