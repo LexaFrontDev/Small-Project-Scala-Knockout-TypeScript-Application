@@ -13,16 +13,16 @@ object Main extends App with AppModule {
   implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "my-system")
   override implicit lazy val ec: scala.concurrent.ExecutionContext = system.executionContext
 
-  val allowedOrigins = Set(
-    "https://small-project-scala-knockout-typescript.onrender.com",
-    "https://small-project-scala-knockout-typescript-62bw.onrender.com",
-    "http://localhost:9090"
-  )
 
+  val allowedOrigins = Set(
+    HttpOrigin("https://small-project-scala-knockout-typescript.onrender.com"),
+    HttpOrigin("https://small-project-scala-knockout-typescript-62bw.onrender.com"),
+    HttpOrigin("http://localhost:9090")
+  )
+  
+  
   val settings = CorsSettings.defaultSettings
-    .withAllowedOrigins { origin: HttpOrigin =>
-      allowedOrigins.contains(origin.toString())
-    }
+    .withAllowedOrigins(origin => allowedOrigins.contains(origin))
     .withAllowedMethods(Seq(GET, POST, PUT, DELETE, OPTIONS))
 
   val routeWithCors = cors(settings) {
