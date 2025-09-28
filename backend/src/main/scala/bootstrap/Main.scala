@@ -7,16 +7,17 @@ import akka.http.scaladsl.model.HttpMethods._
 import akka.http.scaladsl.model.headers.HttpOrigin
 import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
 import ch.megard.akka.http.cors.scaladsl.settings.CorsSettings
-
 import bootstrap.AppModule
 
 object Main extends App with AppModule {
   implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "my-system")
   override implicit lazy val ec: scala.concurrent.ExecutionContext = system.executionContext
 
+  val allowedOrigin = "https://small-project-scala-knockout-typescript.onrender.com"
+
   val settings = CorsSettings.defaultSettings
     .withAllowedOrigins { origin: HttpOrigin =>
-      origin.host.toString == "small-project-scala-knockout-typescript.onrender.com"
+      origin.toString() == allowedOrigin
     }
     .withAllowedMethods(Seq(GET, POST, PUT, DELETE, OPTIONS))
 
