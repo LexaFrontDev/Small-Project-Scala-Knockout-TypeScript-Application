@@ -15,6 +15,7 @@ object Main extends App with AppModule {
 
   val allowedOrigins = Set(
     "https://small-project-scala-knockout-typescript.onrender.com",
+    "https://small-project-scala-knockout-typescript-62bw.onrender.com",
     "http://localhost:9090"
   )
 
