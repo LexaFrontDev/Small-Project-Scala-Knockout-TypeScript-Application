@@ -5,15 +5,24 @@ import infrastructure.EntityMapper.users.UserMapper
 import org.mongodb.scala._
 import org.mongodb.scala.model.Indexes
 import domain.persistence.repository.users.UsersRepository
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class MongoUsersRepository(implicit ec: ExecutionContext) extends UsersRepository {
 
-  private val mongoUri = sys.env.getOrElse("MONGO_URI", "mongodb://localhost:27017/mydb")
+  private val mongoUri: String = sys.env.getOrElse("MONGO_URI", "mongodb://localhost:27017/mydb")
+
+  private val databaseName: String = {
+    val fromEnv = sys.env.get("MONGO_DB_NAME")
+    fromEnv.getOrElse {
+      val dbFromUri = mongoUri.split("/").lastOption.getOrElse("mydb")
+      if (dbFromUri.contains("?")) dbFromUri.takeWhile(_ != '?') else dbFromUri
+    }
+  }
+
   private val client: MongoClient = MongoClient(mongoUri)
-  private val db: MongoDatabase   = client.getDatabase("mydb")
+  private val db: MongoDatabase   = client.getDatabase(databaseName)
   private val usersCollection: MongoCollection[Document] = db.getCollection("users")
+
 
   usersCollection.createIndex(Indexes.ascending("email")).toFuture()
 

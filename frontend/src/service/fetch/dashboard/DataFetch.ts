@@ -4,9 +4,8 @@ import {UsersList} from "../../../props/dashboard/UsersList";
 
 export class DataFetch {
 
-
     async  fetchData(): Promise<UsersList | boolean>{
-       const response = await fetch('https://small-project-scala-knockout-typescript-62bw.onrender.com/users', {
+       const response = await fetch(`http://localhost:9000/users`, {
            method: 'GET',
            headers: {
                'Content-Type': 'application/json',
